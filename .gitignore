@@ -1,0 +1,23 @@
+# ==========================================
+# Aerospace Trajectory Suite - Git Ignore
+# ==========================================
+
+# --- OS & Tooling ---
+.DS_Store
+Thumbs.db
+project_snapshot.json
+snapshot.py
+
+# --- Core Engine (C++ Backend) ---
+core-engine/bin/
+core-engine/obj/
+core-engine/*.sock
+core-engine/*.bin
+core-engine/flight_blackbox.bin
+
+# --- Trajectory Browser (React Frontend) ---
+trajectory-browser/node_modules/
+trajectory-browser/build/
+trajectory-browser/dist/
+trajectory-browser/.env
+trajectory-browser/npm-debug.log*
