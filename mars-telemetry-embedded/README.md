@@ -18,6 +18,36 @@ The ESP32 firmware utilizes **Pulse Width Modulation (PWM)** to map Martian temp
 * **Logic:** Converts Celsius to Kelvin to maintain a positive-only scale for duty cycle mapping.
 * **Frequency:** 500Hz for stable LED visual output.
 
+### 3. Data Modeling & Analysis (`/tutorial`)
+The core analytical component of the module. It utilizes **NumPy** and **Matplotlib** to bridge the gap between raw telemetry and hardware states.
+* **Thermal Modeling:** Implements a sinusoidal interpolation to estimate diurnal temperature variations based on daily Min/Max peaks.
+* **Data Validation:** Includes pre-processing checks to handle missing "Sol" entries from the NASA RSS feed.
+
+## Hardware Configuration
+
+To replicate the thermal simulation, connect an **RGB LED (Common Anode/Cathode)** to the following ESP32 GPIOs:
+
+| Component | ESP32 Pin | Function |
+| :--- | :--- | :--- |
+| **Red Channel** | GPIO 14 | PWM Thermal Intensity (Warm) |
+| **Green Channel** | GPIO 13 | PWM Thermal Intensity (Balanced) |
+| **Blue Channel** | GPIO 12 | PWM Thermal Intensity (Cold) |
+| **Common** | VIN / GND | Power Supply |
+
+## Data Contract (JSON Schema)
+
+The ingestion pipeline (`telemetry/`) produces a normalized payload to ensure compatibility with embedded memory constraints:
+
+```json
+[
+  {
+    "date": "YYYY-MM-DD",
+    "min_temp": "float",
+    "max_temp": "float"
+  }
+]
+```
+
 ## How to Run
 
 ### Ingestion Pipeline
